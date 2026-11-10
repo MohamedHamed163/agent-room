@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Agent Room</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/style.css" />
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+</head>
+<body>
+  <div id="scene"></div>
+
+  <!-- Entry screen -->
+  <div id="enter" class="overlay">
+    <div class="enter-card">
+      <div class="logo">◆</div>
+      <h1>Agent Room</h1>
+      <p>An AI team that plans, codes, ships to GitHub and operates your computer.<br/>Walk in, pick an agent, give a task, and watch them work.</p>
+      <div id="status-chips" class="chips"></div>
+      <button id="enter-btn">Enter the room</button>
+      <div class="hint">WASD / arrows to walk · drag to look · click an agent to talk to it · <kbd>T</kbd> to type</div>
+    </div>
+  </div>
+
+  <!-- HUD -->
+  <div id="hud" class="hidden">
+    <div id="team" class="panel"></div>
+
+    <div id="feed-wrap" class="panel">
+      <div class="panel-head">
+        <span>Live activity</span>
+        <button id="stop-btn" class="ghost danger hidden">■ Stop</button>
+      </div>
+      <div id="feed"></div>
+    </div>
+
+    <form id="composer" class="panel">
+      <button type="button" id="target-chip" title="Click to talk to the whole team">To: Atlas (team)</button>
+      <input id="task-input" autocomplete="off" placeholder="Ask the team to do something… e.g. 'Open a PR in owner/repo adding a CI workflow'" />
+      <button id="send-btn" type="submit">Send ↵</button>
+    </form>
+  </div>
+
+  <!-- Approval modal -->
+  <div id="approval" class="overlay hidden">
+    <div class="modal">
+      <div class="modal-tag">Approval needed</div>
+      <h2 id="ap-title"></h2>
+      <pre id="ap-detail"></pre>
+      <div class="row">
+        <button id="ap-deny" class="ghost">Deny</button>
+        <button id="ap-ok">Approve</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Report modal -->
+  <div id="report" class="overlay hidden">
+    <div class="modal wide">
+      <div class="modal-tag">Final report from Atlas</div>
+      <div id="report-body" class="md"></div>
+      <div class="row"><button id="report-close">Close</button></div>
+    </div>
+  </div>
+
+  <div id="toast" class="hidden"></div>
+  <script type="module" src="/static/main.js"></script>
+</body>
+</html>
